@@ -4,7 +4,7 @@ exports.getGroups = async (req, res) => {
   try {
 
     const groups = await Group.find({
-      members: req.user.id
+      members: [req.user.id]
     });
 
     res.json(groups);
