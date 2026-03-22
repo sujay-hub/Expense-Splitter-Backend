@@ -6,8 +6,8 @@ const jwt = require("jsonwebtoken");
 exports.signup = async (req, res) => {
     try {
         const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
         const { name, email, password } = req.body;
+        const hashedPassword = await bcrypt.hash(password, salt);
         const existingUser = await User.findOne({ email });
 
 
@@ -25,10 +25,12 @@ exports.signup = async (req, res) => {
 
         res.status(201).json({ message: "User created successfully" });
 
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "Server error" });
-    }
+    } catch (err) {
+  console.error("SIGNUP ERROR:", err);
+  res.status(500).json({
+    message: err.message || "Server error"
+  });
+}
 };
 
 
