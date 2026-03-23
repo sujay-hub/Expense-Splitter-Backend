@@ -42,11 +42,11 @@ exports.createGroup = async (req, res) => {
       createdBy: req.user.id,
       members: [req.user.id]
     });
-
+    console.log("REQ.USER1", req.user);
     await group.save();
 
     res.status(201).json(group);
-
+    console.log("REQ.USER2", req.user);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
