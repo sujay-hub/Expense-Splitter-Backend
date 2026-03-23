@@ -34,7 +34,7 @@ exports.getGroupById = async (req, res) => {
 
 exports.createGroup = async (req, res) => {
   try {
-
+    console.log("REQ.USER1", req.user);
     const { name } = req.body;
 
     const group = new Group({
@@ -42,7 +42,6 @@ exports.createGroup = async (req, res) => {
       createdBy: req.user.id,
       members: [req.user.id]
     });
-    console.log("REQ.USER1", req.user);
     await group.save();
 
     res.status(201).json(group);
