@@ -10,7 +10,7 @@ const {
   getGroupSettlements
 } = require("../controllers/groupController");
 
-router.get("/", getGroups);
+router.get("/", authMiddleware, getGroups);
 
 router.post("/create", authMiddleware, createGroup);
 
