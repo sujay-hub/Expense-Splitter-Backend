@@ -14,10 +14,14 @@ const app = express();
 connectDB();
 
 /* middleware */
+app.use(helmet());
 app.use(cors());
 app.use(express.json());
-app.use(helmet());
 
+/* rate limiter */
+app.use("/api/auth/login", loginLimiter);
+
+/* routes */
 const authRoutes = require("./routes/authRoutes");
 app.use("/api/auth", authRoutes);
 
@@ -30,10 +34,9 @@ app.use("/api/expenses", expenseRoutes);
 const settlementRoutes = require("./routes/settlementRoutes");
 app.use("/api/settlements", settlementRoutes);
 
+/* error handler */
 const errorHandler = require("./middleware/errorHandler");
 app.use(errorHandler);
-
-app.use("/api/auth/login", loginLimiter);
 
 /* test route */
 app.get("/", (req, res) => {

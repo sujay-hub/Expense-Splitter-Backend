@@ -12,6 +12,8 @@ const {
 
 router.get("/", authMiddleware, getGroups);
 
+router.get("/:id", authMiddleware, getGroupById);
+
 router.post("/create", authMiddleware, createGroup);
 
 router.post("/add-member", authMiddleware, addMember);
