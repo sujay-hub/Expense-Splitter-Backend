@@ -5,6 +5,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 
 const {
   getGroups,
+  getGroupById,
   createGroup,
   addMember,
   getGroupSettlements
