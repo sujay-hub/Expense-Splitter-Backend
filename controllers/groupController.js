@@ -1,4 +1,5 @@
 const Group = require("../models/Group");
+const User = require("../models/User");
 
 exports.getGroups = async (req, res) => {
   try {
@@ -55,7 +56,7 @@ exports.createGroup = async (req, res) => {
 exports.addMember = async (req, res) => {
   try {
 
-    const { groupId, userId } = req.body;
+    const { groupId, email } = req.body;
 
     const user = await User.findOne({email});
     if(!user){
@@ -77,7 +78,10 @@ exports.addMember = async (req, res) => {
 
     await group.save();
 
-    res.json(group);
+    const updatedGroup = await Group.findById(groupId)
+    .populate("members","name email");
+
+    res.json(updatedGroup);
 
   } catch (error) {
     console.error(error);
