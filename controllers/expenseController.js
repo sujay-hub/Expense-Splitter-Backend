@@ -52,3 +52,23 @@ exports.getGroupExpenses = async (req, res) => {
 
 };
 
+exports.deleteExpense = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const expense = await Expense.findById(id);
+
+    if (!expense) {
+      return res.status(404).json({ message: "Expense not found" });
+    }
+
+    await Expense.findByIdAndDelete(id);
+
+    res.json({ message: "Expense deleted successfully" });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+

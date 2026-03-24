@@ -7,12 +7,15 @@ const validateRequest = require("../middleware/validateRequest");
 
 const {
   addExpense,
-  getGroupExpenses
+  getGroupExpenses,
+  deleteExpense
 } = require("../controllers/expenseController");
 
 router.post("/add", authMiddleware, addExpense);
 
 router.get("/:groupId", authMiddleware, getGroupExpenses);
+
+router.delete("/:id", authMiddleware, deleteExpense);
 
 router.post(
   "/add",
