@@ -57,8 +57,13 @@ exports.addMember = async (req, res) => {
 
     const { groupId, userId } = req.body;
 
-    const group = await Group.findById(groupId);
+    const user = await User.findOne({email});
+    if(!user){
+      return res.status(404).json({message:"User not found."});
+    }
 
+    const group = await Group.findById(groupId);
+    
     if (!group) {
       // return res.status(404).json({ message: "Group not found" });
       const error = new Error("Group not found");
@@ -66,8 +71,8 @@ exports.addMember = async (req, res) => {
       throw error;
     }
 
-    if (!group.members.includes(userId)) {
-      group.members.push(userId);
+    if (!group.members.includes(user._id)) {
+      group.members.push(user._id);
     }
 
     await group.save();
