@@ -4,7 +4,7 @@ exports.getGroups = async (req, res) => {
   try {
 
     const groups = await Group.find({
-      members: [req.user.id]
+      members: [req.user.userId]
     });
 
     res.json(groups);
@@ -39,8 +39,8 @@ exports.createGroup = async (req, res) => {
 
     const group = new Group({
       name,
-      createdBy: req.user.id,
-      members: [req.user.id]
+      createdBy: req.user.userId,
+      members: [req.user.userId]
     });
     await group.save();
 
