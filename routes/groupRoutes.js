@@ -19,6 +19,6 @@ router.post("/create", authMiddleware, createGroup);
 
 router.post("/add-member", authMiddleware, addMember);
 
-router.get("/:id/settlements", authMiddleware, getGroupSettlements);
+//router.get("/:id/settlements", authMiddleware, getGroupSettlements);
 
 module.exports = router;
